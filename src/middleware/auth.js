@@ -59,8 +59,7 @@ const Authrization = async function (req, res, next) {
 }
 module.exports.Authrization = Authrization;
 
-
-const qauth = async function (req, res, next) {
+const Authri = async function (req, res, next) {
     try {
         let token = req.headers["x-api-key"];
         if (!token) token = req.headers["X-Api-Key"]
@@ -68,13 +67,13 @@ const qauth = async function (req, res, next) {
             return res.status(400).send({ Error: "Enter x-api-key In Header" });
         }
         let decodedToken = jwt.verify(token, "BloggingSiteProject")
-        let authorId = req.query.authorId;
+        let blogId = req.query.blogId;
 
-        if (authorId.length < 24) {
+        if (blogId.length < 24) {
             return res.status(404).send({ msg: "Enter Valid Blog-Id" });
         }
         let decoded = decodedToken.authorid
-        let blog = await blogModel.findOne({authorId:authorId});
+        let blog = await blogModel.findById(blogId);
         if (!blog) {
             return res.send("Blog doesn't exist");
         }
@@ -89,4 +88,4 @@ const qauth = async function (req, res, next) {
         return res.status(500).send({ msg: err.message });
     }
 }
-module.exports.qauth = qauth;
+module.exports.Authri = Authri;

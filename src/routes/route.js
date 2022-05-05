@@ -3,7 +3,7 @@ const router = express.Router();
 const authorController = require("../controllers/authorController");
 const blogsController = require("../controllers/blogController");
 const { validateAuthor, validateblog } = require('../middleware/valid');
-const { Authentication, Authrization, qauth } = require('../middleware/auth');
+const { Authentication, Authrization, Authri } = require('../middleware/auth');
 
 // Kirtan-G
 router.post("/blogs", Authentication, validateblog, blogsController.createBlog);
@@ -11,7 +11,7 @@ router.delete("/blogs/:blogId", Authentication, Authrization, blogsController.de
 
 // Salman-110
 router.put("/blogs/:blogId", Authrization, blogsController.updateblogs);
-router.delete("/blogs", Authentication, qauth, blogsController.queryDeleted);
+router.delete("/blogs", Authentication, Authri, blogsController.queryDeleted);
 
 //amitvsk
 router.get("/blogs", Authentication, blogsController.getBlogs);
